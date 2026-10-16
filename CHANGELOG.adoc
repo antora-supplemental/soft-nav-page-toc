@@ -1,6 +1,10 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.5 — hide-page meta
+
+* Composed HTML meta `antora-supplemental:hide-page`; `:hide-from-navtree:` legacy parse only.
+
 == 0.1.4 — hide-page directive
 
 * Parse `:hide-page:` alongside `:hide-from-navtree:` for nav-tree-hidden pages.

@@ -35,13 +35,13 @@ Community proposal (nav-hidden pages + first-class soft-nav TOC lifecycle): http
 
 == Nav tree parent registry
 
-Pages that use `:hide-from-navtree:` may also need an explicit **nav tree parent** when they are not under a `*-details/` folder or when cross-tree xrefs should share one parent.
+Pages that use `:hide-page:` may also need an explicit **nav tree parent** when they are not under a `*-details/` folder or when cross-tree xrefs should share one parent.
 
 * Per page: `:navtree-parent: changelog.adoc` (wins over registry).
 * Component file: `modules/ROOT/navtree-registry.json` with `parentByPrefix` and/or `pages` maps.
 * In `nav.adoc` (comments only, not rendered): `;; navtree-parent-association: changelog-details/ -> changelog.adoc`
 
-Mark hidden nav-tree pages with `:hide-page:` (or `:hide-from-navtree:`) and `:navtree-parent:` — not `:omit-nav:` (see upstream proposal).
+Mark nav-tree-hidden pages with `:hide-page:` and `:navtree-parent:` (see upstream proposal).
 
 == Config
 

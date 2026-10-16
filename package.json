@@ -1,6 +1,6 @@
 {
   "name": "@antora-supplemental/soft-nav-page-toc",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Rebuild Default UI aside page TOC after SoftNav article swaps",
   "license": "MIT",
   "author": "Ryan Johnson (https://github.com/AMDphreak)",
