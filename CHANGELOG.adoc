@@ -1,6 +1,11 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.1 — nav-hidden meta for SoftNav
+
+* Inject `<meta name="antora-supplemental:nav-hidden">` and optional `nav-parent` from `:page-nav-hidden:` / `:page-nav-parent:` at compose time.
+* Hubs with integrated `soft-nav.js` may set `injectScript: false`; TOC rebuild lives in SoftNav.
+
 == 0.1.0 — initial release
 
 * Publish `soft-nav-page-toc.js` and inject after Default UI `site.js` on composed pages.
