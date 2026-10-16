@@ -1,0 +1,44 @@
+= soft-nav-page-toc
+:description: Rebuild aside page TOC after SoftNav swaps the article.
+
+Antora extension for hubs that use https://github.com/antora-supplemental/antora-ui-chassis/tree/main/packages/soft-nav[SoftNav] with Default UI / Valentus.
+
+Default UI `site.js` builds `aside.toc.sidebar` once at load.
+SoftNav swaps mast, left nav, and article — not the right-rail TOC — so orphan/detail targets (for example changelog-details) show stale heading lists until a full reload.
+
+This extension publishes `_/js/soft-nav-page-toc.js` and injects it after `ui/js/site.js` on each composed page.
+The script rebuilds the page TOC on load and on `soft-nav:loaded` / `doc-nav:loaded`.
+
+== Install
+
+[source,bash]
+----
+pnpm add -D github:antora-supplemental/soft-nav-page-toc#v0.1.0
+----
+
+[source,yaml]
+----
+antora:
+  extensions:
+    - require: '@antora-supplemental/soft-nav-page-toc'
+----
+
+Load https://github.com/antora-supplemental/antora-ui-chassis/tree/main/packages/soft-nav[`soft-nav.js`] in supplemental UI **before** Mermaid/lightbox consumers (Facto stack demos do this).
+
+== Facto stack
+
+`@antora-supplemental/facto-stack` hub profile registers this extension when the pack is enabled (see pack `CHANGELOG.adoc`).
+
+== Upstream proposal
+
+Community proposal (nav-hidden pages + first-class soft-nav TOC lifecycle): https://docs.antora-supplemental.org/docs/ROOT/proposals/soft-nav-page-toc.html[SoftNav page TOC and nav-hidden pages^].
+
+== Config
+
+[cols="1,2"]
+|===
+| Key | Default
+
+| `skip` | `false`
+| `injectScript` | `true` — append defer script after `site.js`; set `false` if you load the script from a supplemental partial yourself
+|===

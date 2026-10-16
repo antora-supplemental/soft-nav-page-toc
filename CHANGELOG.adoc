@@ -1,0 +1,8 @@
+= Changelog
+:toclevels: 2
+
+== 0.1.0 — initial release
+
+* Publish `soft-nav-page-toc.js` and inject after Default UI `site.js` on composed pages.
+* Rebuild aside page TOC on load and on `soft-nav:loaded` / `doc-nav:loaded`.
+* Registry metadata for extension-lister / build-stack footers.
