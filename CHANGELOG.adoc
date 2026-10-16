@@ -1,6 +1,11 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.2 — breadcrumbs and hide-from-navtree
+
+* Meta tags use `hide-from-navtree` and `navtree-parent` (legacy names still read in SoftNav).
+* Inject parent breadcrumb segment in composed HTML for nav-hidden pages.
+
 == 0.1.1 — nav-hidden meta for SoftNav
 
 * Inject `<meta name="antora-supplemental:nav-hidden">` and optional `nav-parent` from `:page-nav-hidden:` / `:page-nav-parent:` at compose time.

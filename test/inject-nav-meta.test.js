@@ -2,18 +2,26 @@
 
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
-const { readAdocNavMeta, injectNavMetaTags } = require('../lib/inject-nav-meta.js')
+const { readAdocNavMeta, injectNavMetaTags, injectParentBreadcrumb } = require('../lib/inject-nav-meta.js')
 
 describe('inject-nav-meta', () => {
-  it('reads nav-hidden and parent from adoc', () => {
-    const meta = readAdocNavMeta(':page-nav-hidden:\n:page-nav-parent: changelog.adoc\n= X\n')
+  it('reads hide-from-navtree and parent from adoc', () => {
+    const meta = readAdocNavMeta(':hide-from-navtree:\n:navtree-parent: changelog.adoc\n= X\n')
     assert.ok(meta)
     assert.equal(meta.parent, 'changelog.adoc')
   })
 
   it('injects meta tags into head', () => {
     const out = injectNavMetaTags('<html><head></head><body></body></html>', { parent: 'changelog.adoc' })
-    assert.match(out, /antora-supplemental:nav-hidden/)
-    assert.match(out, /nav-parent" content="changelog\.adoc"/)
+    assert.match(out, /hide-from-navtree/)
+    assert.match(out, /navtree-parent" content="changelog\.adoc"/)
+  })
+
+  it('injects parent breadcrumb before current trail', () => {
+    const html =
+      '<ul><li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><a href="./">Leaf</a></li></ul>'
+    const out = injectParentBreadcrumb(html, { parent: 'changelog.adoc' }, { pub: { url: '/docs/changelog-details/foo/' } })
+    assert.match(out, /data-navtree-parent="1"/)
+    assert.match(out, /href="\.\.\/\.\.\/changelog\/"/)
   })
 })
