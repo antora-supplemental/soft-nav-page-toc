@@ -41,7 +41,7 @@ Pages that use `:hide-from-navtree:` may also need an explicit **nav tree parent
 * Component file: `modules/ROOT/navtree-registry.json` with `parentByPrefix` and/or `pages` maps.
 * In `nav.adoc` (comments only, not rendered): `;; navtree-parent-association: changelog-details/ -> changelog.adoc`
 
-Author directives stay **explicit and long** — `:hide-from-navtree:` and `:navtree-parent:` — not `:omit-nav:` or `:nav-hidden:` (see upstream proposal).
+Mark hidden nav-tree pages with `:hide-page:` (or `:hide-from-navtree:`) and `:navtree-parent:` — not `:omit-nav:` (see upstream proposal).
 
 == Config
 

@@ -5,10 +5,12 @@ const assert = require('node:assert/strict')
 const { readAdocNavMeta, injectNavMetaTags, injectParentBreadcrumb } = require('../lib/inject-nav-meta.js')
 
 describe('inject-nav-meta', () => {
-  it('reads hide-from-navtree and parent from adoc', () => {
-    const meta = readAdocNavMeta(':hide-from-navtree:\n:navtree-parent: changelog.adoc\n= X\n')
+  it('reads hide-page / hide-from-navtree and parent from adoc', () => {
+    const meta = readAdocNavMeta(':hide-page:\n:navtree-parent: changelog.adoc\n= X\n')
     assert.ok(meta)
     assert.equal(meta.parent, 'changelog.adoc')
+    const meta2 = readAdocNavMeta(':hide-from-navtree:\n:navtree-parent: changelog.adoc\n= X\n')
+    assert.equal(meta2.parent, 'changelog.adoc')
   })
 
   it('injects meta tags into head', () => {
