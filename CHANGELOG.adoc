@@ -1,6 +1,12 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.3 — navtree parent registry
+
+* Resolve `:navtree-parent:` from `navtree-registry.json` and `;; navtree-parent-association:` lines in `nav.adoc` when the page directive is absent.
+* Meta injection runs even when `injectScript: false`.
+* Document explicit long author names (`:hide-from-navtree:`); avoid ambiguous `:omit-nav:` / `:nav-hidden:` in proposals.
+
 == 0.1.2 — breadcrumbs and hide-from-navtree
 
 * Meta tags use `hide-from-navtree` and `navtree-parent` (legacy names still read in SoftNav).

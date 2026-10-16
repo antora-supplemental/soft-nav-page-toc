@@ -33,6 +33,16 @@ Load https://github.com/antora-supplemental/antora-ui-chassis/tree/main/packages
 
 Community proposal (nav-hidden pages + first-class soft-nav TOC lifecycle): https://docs.antora-supplemental.org/docs/ROOT/proposals/soft-nav-page-toc.html[SoftNav page TOC and nav-hidden pages^].
 
+== Nav tree parent registry
+
+Pages that use `:hide-from-navtree:` may also need an explicit **nav tree parent** when they are not under a `*-details/` folder or when cross-tree xrefs should share one parent.
+
+* Per page: `:navtree-parent: changelog.adoc` (wins over registry).
+* Component file: `modules/ROOT/navtree-registry.json` with `parentByPrefix` and/or `pages` maps.
+* In `nav.adoc` (comments only, not rendered): `;; navtree-parent-association: changelog-details/ -> changelog.adoc`
+
+Author directives stay **explicit and long** — `:hide-from-navtree:` and `:navtree-parent:` — not `:omit-nav:` or `:nav-hidden:` (see upstream proposal).
+
 == Config
 
 [cols="1,2"]
@@ -40,5 +50,6 @@ Community proposal (nav-hidden pages + first-class soft-nav TOC lifecycle): http
 | Key | Default
 
 | `skip` | `false`
-| `injectScript` | `true` — append defer script after `site.js`; set `false` if you load the script from a supplemental partial yourself
+| `injectScript` | `true` — append defer script after `site.js`; set `false` if hub `soft-nav.js` already rebuilds the TOC
+| `navtreeRegistryPaths` | `[]` — extra JSON registry paths relative to the playbook dir
 |===
