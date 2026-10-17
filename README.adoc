@@ -31,7 +31,7 @@ Load https://github.com/antora-supplemental/antora-ui-chassis/tree/main/packages
 
 == Demo data
 
-* **Supplement lives in extension repo** — integration proof is link:https://github.com/antora-supplemental/facto-stack[`facto-stack`^] `demo/docs` (SoftNav page) composed with link:https://github.com/antora-supplemental/demo-data[`demo-data`^] `docs/theme-demo` for multi-page nav + article body.
+* **Supplement lives in extension repo** — integration proof is link:https://github.com/antora-supplemental/facto-stack[`facto-stack`^] `demo/docs` (SoftNav page) composed with link:https://github.com/antora-supplemental/demo-data[`demo-data`^] `docs/demo-pages` for multi-page nav + article body.
 * No `docs/fixtures/soft-nav-page-toc` under `demo-data` until a second demo reuses the same pages.
 * Pattern: link:https://docs.antora-supplemental.org/docs/ROOT/proposals/demo-data-catalog.html[Demo data catalog^].
 
