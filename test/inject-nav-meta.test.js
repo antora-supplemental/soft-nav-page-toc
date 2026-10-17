@@ -2,7 +2,7 @@
 
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
-const { readAdocNavMeta, injectNavMetaTags, injectParentBreadcrumb } = require('../lib/inject-nav-meta.js')
+const { readAdocNavMeta, injectNavMetaTags, injectParentBreadcrumb, injectNavMetaForPages } = require('../lib/inject-nav-meta.js')
 
 describe('inject-nav-meta', () => {
   it('reads hide-page and parent from adoc', () => {
@@ -19,9 +19,33 @@ describe('inject-nav-meta', () => {
 
   it('injects parent breadcrumb before current trail', () => {
     const html =
-      '<ul><li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><a href="./">Leaf</a></li></ul>'
+      '<ul><li class="adt-breadcrumb-sep" aria-hidden="true">/</li>' +
+      '<li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><a href="./">Leaf</a></li></ul>'
     const out = injectParentBreadcrumb(html, { parent: 'changelog.adoc' }, { pub: { url: '/docs/changelog-details/foo/' } })
     assert.match(out, /data-navtree-parent="1"/)
     assert.match(out, /href="\.\.\/\.\.\/changelog\/"/)
+    assert.match(out, />Changelog</)
+    assert.equal((out.match(/adt-breadcrumb-sep/g) || []).length, 2)
+  })
+
+  it('reads hide-page from composed page attributes when source bytes are already HTML', () => {
+    const page = {
+      contents: Buffer.from(
+        '<html><head></head><body><ul>' +
+        '<li class="adt-breadcrumb-sep" aria-hidden="true">/</li>' +
+        '<li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><span class="adt-breadcrumb-trail-text">2026-10-16</span></li>' +
+        '</ul></body></html>'
+      ),
+      asciidoc: { attributes: { 'hide-page': '', 'navtree-parent': 'changelog.adoc' } },
+      pub: { url: '/docs/docs/changelog-details/foo/' },
+      src: { relative: 'modules/ROOT/pages/changelog-details/foo.adoc' },
+    }
+    const n = injectNavMetaForPages([page], { pages: {}, parentByPrefix: {} }, () => 'changelog-details/foo.adoc')
+    assert.equal(n, 1)
+    const html = page.contents.toString('utf8')
+    assert.match(html, /antora-supplemental:hide-page/)
+    assert.match(html, /navtree-parent" content="changelog\.adoc"/)
+    assert.match(html, /data-navtree-parent="1"/)
+    assert.match(html, />Changelog</)
   })
 })

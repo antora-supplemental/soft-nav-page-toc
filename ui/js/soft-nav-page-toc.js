@@ -35,14 +35,14 @@
       var parts = [articleSel]
       if (i) {
         for (var c = 1; c <= i; c++) {
-          parts.push(c === 2 ? '.sectionbody>' : '')
-          parts.push('.sect' + c)
+          // Same string site.js joins: ".sectionbody>" is part of the sect token, not its own ">".
+          parts.push((c === 2 ? '.sectionbody>' : '') + '.sect' + c)
         }
         parts.push('h' + (i + 1) + '[id]' + (i > 1 ? ':not(.discrete)' : ''))
       } else {
         parts.push('h1[id].sect0')
       }
-      selectors.push(parts.filter(Boolean).join('>'))
+      selectors.push(parts.join('>'))
     }
 
     var query = selectors.join(',')

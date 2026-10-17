@@ -1,6 +1,12 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.6 — TOC selector and script URL
+
+* Aside TOC query matches Default UI `site.js` (`.sectionbody>` stays inside the sect token). The previous join produced `>>`, so `querySelectorAll` threw and the rail stayed on the previous page.
+* Script tag after `site.js` resolves both `ui/js/site.js` and `_/js/site.js` to `_/js/soft-nav-page-toc.js`.
+* Parent breadcrumb insert keeps the separator already in front of the current crumb (one `/` between Changelog and the detail title).
+
 == 0.1.5 — hide-page meta
 
 * Composed HTML meta `antora-supplemental:hide-page`; `:hide-from-navtree:` legacy parse only.
