@@ -19,21 +19,21 @@ describe('inject-nav-meta', () => {
 
   it('injects parent breadcrumb before current trail', () => {
     const html =
-      '<ul><li class="adt-breadcrumb-sep" aria-hidden="true">/</li>' +
-      '<li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><a href="./">Leaf</a></li></ul>'
+      '<ul><li class="valentus-breadcrumb-sep" aria-hidden="true">/</li>' +
+      '<li class="valentus-breadcrumb-trail valentus-breadcrumb-trail--current"><a href="./">Leaf</a></li></ul>'
     const out = injectParentBreadcrumb(html, { parent: 'changelog.adoc' }, { pub: { url: '/docs/changelog-details/foo/' } })
     assert.match(out, /data-navtree-parent="1"/)
     assert.match(out, /href="\.\.\/\.\.\/changelog\/"/)
     assert.match(out, />Changelog</)
-    assert.equal((out.match(/adt-breadcrumb-sep/g) || []).length, 2)
+    assert.equal((out.match(/valentus-breadcrumb-sep/g) || []).length, 2)
   })
 
   it('reads hide-page from composed page attributes when source bytes are already HTML', () => {
     const page = {
       contents: Buffer.from(
         '<html><head></head><body><ul>' +
-        '<li class="adt-breadcrumb-sep" aria-hidden="true">/</li>' +
-        '<li class="adt-breadcrumb-trail adt-breadcrumb-trail--current"><span class="adt-breadcrumb-trail-text">2026-10-16</span></li>' +
+        '<li class="valentus-breadcrumb-sep" aria-hidden="true">/</li>' +
+        '<li class="valentus-breadcrumb-trail valentus-breadcrumb-trail--current"><span class="valentus-breadcrumb-trail-text">2026-10-16</span></li>' +
         '</ul></body></html>'
       ),
       asciidoc: { attributes: { 'hide-page': '', 'navtree-parent': 'changelog.adoc' } },
