@@ -1,6 +1,10 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.8 — zoned article page TOC
+
+* Aside TOC heading selectors use a descendant gap after `article.doc` so sections inside `[data-zone="body"]` / `.doc-zone--body` match (Valentus 3 zoned `article.hbs`). Includes page title `h1` in `.doc-zone--header`. Scopes `querySelectorAll` to the article node. Shared selector helpers in `lib/page-toc-selectors.js`.
+
 == 0.1.7 — bindSoftNavContext lifecycle
 
 * Runtime uses `bindSoftNavContext({ onBoot, onLoaded })` when available; falls back to `DOMContentLoaded` + `soft-nav:loaded` / `doc-nav:loaded`.

@@ -1,11 +1,42 @@
 /**
  * Rebuild Default UI / Valentus aside page TOC after SoftNav swaps the article.
  * Load after soft-nav.js (listens to soft-nav:loaded and doc-nav:loaded).
+ *
+ * Heading selectors: keep in sync with lib/page-toc-selectors.js
  */
 ;(function () {
   'use strict'
 
   var scrollHandler = null
+
+  function buildLevelSelector (articleSel, level) {
+    if (level === 0) {
+      return [
+        articleSel + ' h1[id].sect0',
+        articleSel + ' .doc-zone--header h1[id]',
+        articleSel + ' > h1[id]',
+      ].join(', ')
+    }
+
+    var segs = [articleSel]
+    for (var c = 1; c <= level; c++) {
+      if (c === 1) {
+        segs.push(' .sect' + c)
+      } else {
+        segs.push('>' + (c === 2 ? '.sectionbody>' : '') + '.sect' + c)
+      }
+    }
+    segs.push('>h' + (level + 1) + '[id]' + (level > 1 ? ':not(.discrete)' : ''))
+    return segs.join('')
+  }
+
+  function buildHeadingSelectorQuery (articleSel, levels) {
+    var selectors = []
+    for (var i = 0; i <= levels; i++) {
+      selectors.push(buildLevelSelector(articleSel, i))
+    }
+    return selectors.join(', ')
+  }
 
   function parsePx (el, prop) {
     return parseFloat(window.getComputedStyle(el)[prop])
@@ -30,24 +61,8 @@
     var article = document.querySelector(articleSel)
     if (!article) return
 
-    var selectors = []
-    for (var i = 0; i <= levels; i++) {
-      var parts = [articleSel]
-      if (i) {
-        for (var c = 1; c <= i; c++) {
-          // Same string site.js joins: ".sectionbody>" is part of the sect token, not its own ">".
-          parts.push((c === 2 ? '.sectionbody>' : '') + '.sect' + c)
-        }
-        parts.push('h' + (i + 1) + '[id]' + (i > 1 ? ':not(.discrete)' : ''))
-      } else {
-        parts.push('h1[id].sect0')
-      }
-      selectors.push(parts.join('>'))
-    }
-
-    var query = selectors.join(',')
-    var scope = article.parentNode || document
-    var headings = [].slice.call(scope.querySelectorAll(query))
+    var query = buildHeadingSelectorQuery(articleSel, levels)
+    var headings = [].slice.call(article.querySelectorAll(query))
     if (!headings.length) {
       removeAside(aside)
       return
