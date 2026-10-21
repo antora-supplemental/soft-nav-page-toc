@@ -4,6 +4,7 @@
 == 0.1.7 — bindSoftNavContext lifecycle
 
 * Runtime uses `bindSoftNavContext({ onBoot, onLoaded })` when available; falls back to `DOMContentLoaded` + `soft-nav:loaded` / `doc-nav:loaded`.
+* Injected parent breadcrumb uses `valentus-breadcrumb-*` selectors (Valentus 3).
 
 == 0.1.6 — TOC selector and script URL
 
