@@ -1,6 +1,10 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.7 — bindSoftNavContext lifecycle
+
+* Runtime uses `bindSoftNavContext({ onBoot, onLoaded })` when available; falls back to `DOMContentLoaded` + `soft-nav:loaded` / `doc-nav:loaded`.
+
 == 0.1.6 — TOC selector and script URL
 
 * Aside TOC query matches Default UI `site.js` (`.sectionbody>` stays inside the sect token). The previous join produced `>>`, so `querySelectorAll` threw and the rail stayed on the previous page.

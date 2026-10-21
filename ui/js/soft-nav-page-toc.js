@@ -157,16 +157,31 @@
     scrollHandler()
   }
 
-  function onReady () {
+  function onSoftNavLoaded (detail) {
     rebuildPageToc()
+    void detail
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', onReady)
-  } else {
-    onReady()
+  function bindLifecycle () {
+    if (typeof bindSoftNavContext === 'function') {
+      bindSoftNavContext({
+        onBoot: rebuildPageToc,
+        onLoaded: onSoftNavLoaded,
+      })
+      return
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', rebuildPageToc)
+    } else {
+      rebuildPageToc()
+    }
+
+    document.addEventListener('soft-nav:loaded', function (e) {
+      onSoftNavLoaded(e.detail || {})
+    })
+    document.addEventListener('doc-nav:loaded', rebuildPageToc)
   }
 
-  document.addEventListener('soft-nav:loaded', onReady)
-  document.addEventListener('doc-nav:loaded', onReady)
+  bindLifecycle()
 })()
