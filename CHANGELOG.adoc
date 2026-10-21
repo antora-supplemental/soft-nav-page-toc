@@ -1,6 +1,10 @@
 = Changelog
 :toclevels: 2
 
+== 0.1.9 — data-page-toc-root contract
+
+* TOC discovery uses `[data-page-toc-root]` / `[data-zone="body"]` as the section scan root; title `h1` from `[data-zone="header"]`. Published `soft-nav-page-toc.js` bundles `page-toc-runtime.js` + lifecycle hook; defers to `window.ValentusPageToc.rebuild` when Valentus `site-page-toc.js` is present. Helpers in `lib/page-toc-selectors.js`.
+
 == 0.1.8 — zoned article page TOC
 
 * Aside TOC heading selectors use a descendant gap after `article.doc` so sections inside `[data-zone="body"]` / `.doc-zone--body` match (Valentus 3 zoned `article.hbs`). Includes page title `h1` in `.doc-zone--header`. Scopes `querySelectorAll` to the article node. Shared selector helpers in `lib/page-toc-selectors.js`.

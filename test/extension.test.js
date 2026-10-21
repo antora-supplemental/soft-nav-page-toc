@@ -35,8 +35,9 @@ describe('soft-nav-page-toc extension', () => {
   it('toc script uses site.js sectionbody selector (no double combinator)', () => {
     const fs = require('node:fs')
     const path = require('node:path')
-    const src = fs.readFileSync(path.join(__dirname, '../ui/js/soft-nav-page-toc.js'), 'utf8')
-    assert.match(src, /\(c === 2 \? '\.sectionbody>' : ''\) \+ '\.sect' \+ c\)/)
-    assert.doesNotMatch(src, /parts\.push\(c === 2 \? '\.sectionbody>' : ''\)/)
+    const runtime = fs.readFileSync(path.join(__dirname, '../ui/js/page-toc-runtime.js'), 'utf8')
+    assert.match(runtime, /\(c === 2 \? '\.sectionbody>' : ''\) \+ '\.sect' \+ c\)/)
+    assert.match(runtime, /data-page-toc-root/)
+    assert.doesNotMatch(runtime, /parts\.push\(c === 2 \? '\.sectionbody>' : ''\)/)
   })
 })
